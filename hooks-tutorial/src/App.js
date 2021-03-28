@@ -4,7 +4,7 @@ import Info from "./Info";
 import Counter from "./Counter";
 
 function App() {
-    return <Counter />;
+    return <Info />;
 }
 
 export default App;
