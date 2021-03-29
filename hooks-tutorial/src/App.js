@@ -1,10 +1,9 @@
 import "./App.css";
-import React, { useState } from "react";
-import Info from "./Info";
-import Counter from "./Counter";
+import React from "react";
+import Average from "./Average";
 
 function App() {
-    return <Info />;
+    return <Average />;
 }
 
 export default App;
