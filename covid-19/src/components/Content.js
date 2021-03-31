@@ -48,16 +48,24 @@ const Content = () => {
             },[])
             // reduce를 사용하여 반복문을 만든다. acc는 누적값, cur은 현재값이다. 그런 다음 배열로 값을 전달받는다.
             const labels = arr.map(a=>`${a.month+1}월`)
-            const data = arr.map(a=>a.confirmed)
             setConfirmedData({
                 labels,
                 datasets:[{
                 label:"국내 누적 확진자",
-                backgroundColor: "#FD7272",
+                backgroundColor: "#ff7979",
                 fill:true,
-                data
+                data: arr.map(a=>a.confirmed)
             }]
         })
+        setQuarantinedData({
+            labels,
+            datasets:[{
+            label:"월별 격리자 현황",
+            borderColor: "#badc58",
+            fill:false,
+            data: arr.map(a=>a.active)
+        }]
+    })
         }
         fetchEvents();
     });
@@ -69,6 +77,8 @@ const Content = () => {
                     <Bar data={confirmedData} option={{title:{display:true, text:"누적 확진자 추이", fontSize:16}}
                 ,{legend:{display:true, position:"bottom"}}}/>
                 {/* legend : 그래프가 어떤 내용을 뜻하는지 나타낸다. */}
+                <Line data={quarantinedData} option={{title:{display:true, text:"월별 격리자 현황", fontSize:16}}
+                ,{legend:{display:true, position:"bottom"}}}/>
                 </div>
             </div>
         </section>
