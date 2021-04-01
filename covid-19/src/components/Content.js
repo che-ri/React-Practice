@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Bar, Doughnet, Line } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import axios from "axios";
 
 const Content = () => {
     {/* 데이터를 confirmedData에 넣는다. */}
     const [confirmedData,setConfirmedData] = useState({})
     const [quarantinedData,setQuarantinedData] = useState({})
+    const [lastMonthData, setlastMonthData] = useState({})
     //페이지가 마운트되면 바로 정보를 가져오기위해 useEffect사용!
     useEffect(() => {
         const fetchEvents = async () => {
@@ -47,6 +48,7 @@ const Content = () => {
                 return acc;
             },[])
             // reduce를 사용하여 반복문을 만든다. acc는 누적값, cur은 현재값이다. 그런 다음 배열로 값을 전달받는다.
+            console.log(arr)
             const labels = arr.map(a=>`${a.month+1}월`)
             setConfirmedData({
                 labels,
@@ -66,9 +68,24 @@ const Content = () => {
             data: arr.map(a=>a.active)
         }]
     })
+    const lastMonth = arr[arr.length-1];
+    const DoughnutChartColor = ["#ff3d67","#059bff","#ffc233"];
+    setlastMonthData({
+        labels: ["확진자","격리해제","사망"],
+        datasets:[{
+        label:"누적 확진, 해제, 사망 비율",
+        backgroundColor: DoughnutChartColor,
+        borderColor: DoughnutChartColor,
+        fill:false,
+        data: [lastMonth.confirmed, lastMonth.recovered, lastMonth.deaths]
+    }]
+})
+
         }
         fetchEvents();
-    });
+    },[]);
+    // 마운트될때만 실행하기 위해서, 2번째 파라미터에 배열을 넣어주었다. 
+
     return (
         <section>
             <h2>국내 코로나 현황</h2>
@@ -77,9 +94,17 @@ const Content = () => {
                     <Bar data={confirmedData} option={{title:{display:true, text:"누적 확진자 추이", fontSize:16}}
                 ,{legend:{display:true, position:"bottom"}}}/>
                 {/* legend : 그래프가 어떤 내용을 뜻하는지 나타낸다. */}
-                <Line data={quarantinedData} option={{title:{display:true, text:"월별 격리자 현황", fontSize:16}}
-                ,{legend:{display:true, position:"bottom"}}}/>
                 </div>
+                <div>
+                    <Line data={quarantinedData} option={{title:{display:true, text:"월별 격리자 현황", fontSize:16}}
+                    ,{legend:{display:true, position:"bottom"}}}/>
+                </div>
+                <div>
+                    <Doughnut data={lastMonthData} option={{title:{display:true, text:`누적 확진, 해제, 현황, ${new Date().getMonth()+1}`, fontSize:16}}
+                    ,{legend:{display:true, position:"bottom"}}}/>
+                </div>
+
+                
             </div>
         </section>
     );
