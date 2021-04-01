@@ -7,6 +7,7 @@ const Content = () => {
     const [confirmedData,setConfirmedData] = useState({})
     const [quarantinedData,setQuarantinedData] = useState({})
     const [lastMonthData, setlastMonthData] = useState({})
+    const [comparedData, setcomparedData] = useState({})
     //페이지가 마운트되면 바로 정보를 가져오기위해 useEffect사용!
     useEffect(() => {
         const fetchEvents = async () => {
@@ -80,7 +81,20 @@ const Content = () => {
         data: [lastMonth.confirmed, lastMonth.recovered, lastMonth.deaths]
     }]
 })
-
+const prevMonth = arr[arr.length-2];
+const comparedActive = prevMonth.active-lastMonth.active
+const comparedDeaths = prevMonth.deaths-lastMonth.deaths
+const comparedRecovered = prevMonth.recovered-lastMonth.recovered
+    setcomparedData({
+        labels: ["확진자","격리해제","사망"],
+        datasets:[{
+        label:"직전달 비교 현황",
+        backgroundColor: DoughnutChartColor,
+        borderColor: DoughnutChartColor,
+        fill:false,
+        data: [comparedActive,comparedRecovered,comparedDeaths]
+    }]
+})
         }
         fetchEvents();
     },[]);
@@ -103,7 +117,11 @@ const Content = () => {
                     <Doughnut data={lastMonthData} option={{title:{display:true, text:`누적 확진, 해제, 현황, ${new Date().getMonth()+1}`, fontSize:16}}
                     ,{legend:{display:true, position:"bottom"}}}/>
                 </div>
-
+                <div>
+                    <Bar data={comparedData} option={{title:{display:true, text:"누적 확진자 추이", fontSize:16}}
+                ,{legend:{display:true, position:"bottom"}}}/>
+                {/* legend : 그래프가 어떤 내용을 뜻하는지 나타낸다. */}
+                </div>
                 
             </div>
         </section>
