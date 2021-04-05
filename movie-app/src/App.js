@@ -41,7 +41,7 @@ const Food = (props) => {
             >
                 I like {props.name}
             </h1>
-            <img src={props.img} alt="food" />
+            <img src={props.img} alt={props.name} />
         </>
     );
 };
