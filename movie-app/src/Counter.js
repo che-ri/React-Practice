@@ -9,7 +9,7 @@ export class Counter extends Component {
         this.setState((current) => ({ count: current.count + 1 }));
 
     onClickMinus = () =>
-        this.setState((current) => ({ current: current.count - 1 }));
+        this.setState((current) => ({ count: current.count - 1 }));
 
     render() {
         return (
