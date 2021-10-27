@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
 
+//head에 대한 내용을 넣는다.
 export default function Home() {
     const [list, setList] = useState([]);
     const API_URL =
@@ -15,10 +16,16 @@ export default function Home() {
     useEffect(() => {
         getData();
     }, []);
-
     return (
         <div>
-            <title>셰리</title>
+            <Head>
+                <title>셰리</title>
+            </Head>
+            <ul>
+                <li>🎹</li>
+                <li>💻</li>
+                <li>⛺</li>
+            </ul>
         </div>
     );
 }
