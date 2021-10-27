@@ -2,6 +2,8 @@ import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 
+import ListItem from "../src/components/ListItem";
+
 //head에 대한 내용을 넣는다.
 export default function Home() {
     const [list, setList] = useState([]);
@@ -22,11 +24,7 @@ export default function Home() {
             <Head>
                 <title>셰리</title>
             </Head>
-            <ul>
-                <li>🎹</li>
-                <li>💻</li>
-                <li>⛺</li>
-            </ul>
+            <ListItem list={list} />
         </div>
     );
 }

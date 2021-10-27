@@ -1,4 +1,5 @@
 import { Header } from "semantic-ui-react";
+import styled from "styled-components";
 
 //components
 import Gnb from "./Gnb";
@@ -6,8 +7,7 @@ import Gnb from "./Gnb";
 const Top = () => {
     return (
         <div>
-            <img src="/images/비행기.png" alt="logo" />
-            <Header as="h1">셰리</Header>
+            <Header as="h1">메이블린</Header>
             <Gnb />
         </div>
     );
