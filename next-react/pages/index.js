@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 
 //head에 대한 내용을 넣는다.
 export default function Home() {
